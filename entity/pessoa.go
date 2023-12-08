@@ -1,5 +1,7 @@
 package entity
 
+import "strings"
+
 type Pessoa struct {
 	Nome      string
 	Idade     int
@@ -15,11 +17,14 @@ func (a PorNomeIdade) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a PorNomeIdade) Less(i, j int) bool {
 	primeiro := a[i].Nome
 	segundo := a[j].Nome
-	if primeiro == segundo {
-		return a[i].Idade < a[j].Idade
-
+	if strings.ToUpper(primeiro) < strings.ToUpper(segundo) {
+		return strings.ToUpper(primeiro) < strings.ToUpper(segundo)
 	} else {
-		return primeiro < segundo
+		if primeiro != segundo {
+			return primeiro < segundo
+		} else {
+			return a[i].Idade < a[j].Idade
+		}
 	}
 
 }
